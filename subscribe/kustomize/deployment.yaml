@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-subscribe
+  labels:
+    app: nats-subscribe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-subscribe
+  template:
+    metadata:
+      labels:
+        app: nats-subscribe
+    spec:
+      containers:
+      - name: nats-subscribe
+        image: gcr.io/pinjyun/nats-subscribe
+        env:
+        - name: NATS_URL
+          value: nats://nats-cluster.nats-io.svc.cluster.local:4222
+      imagePullSecrets:
+      - name: gcr-json-key

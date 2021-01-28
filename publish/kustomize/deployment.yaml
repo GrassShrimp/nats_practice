@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-publish
+  labels:
+    app: nats-publish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-publish
+  template:
+    metadata:
+      labels:
+        app: nats-publish
+    spec:
+      containers:
+      - name: nats-publish
+        image: gcr.io/pinjyun/nats-publish
+        env:
+        - name: NATS_URL
+          value: nats://nats-cluster.nats-io.svc.cluster.local:4222
+      imagePullSecrets:
+      - name: gcr-json-key
