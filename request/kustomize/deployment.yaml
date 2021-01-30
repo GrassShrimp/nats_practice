@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-request
+  labels:
+    app: nats-request
+spec:
+  selector:
+    matchLabels:
+      app: nats-request
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nats-request
+    spec:
+      containers:
+      - name: nats-request
+        image: nats-request:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: NATS_URL
+          value: nats://nats-cluster.nats-io.svc.cluster.local:4222
+      restartPolicy: Always

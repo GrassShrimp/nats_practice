@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+metadata:
+  name: reply
+build:
+  artifacts:
+  - image: nats-reply
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize:
+    paths:
+    - kustomize
