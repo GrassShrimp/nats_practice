@@ -5,10 +5,15 @@ metadata:
   labels:
     app: nats-publish
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: nats-publish
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -16,9 +21,15 @@ spec:
     spec:
       containers:
       - name: nats-publish
-        image: gcr.io/pinjyun/nats-publish
+        image: nats-publish:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
         env:
         - name: NATS_URL
           value: nats://nats-cluster.nats-io.svc.cluster.local:4222
-      imagePullSecrets:
-      - name: gcr-json-key
+      restartPolicy: Always

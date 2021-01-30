@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+metadata:
+  name: subscribe
+build:
+  artifacts:
+  - image: nats-subscribe
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize:
+    paths:
+    - kustomize
