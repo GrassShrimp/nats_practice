@@ -33,7 +33,7 @@ func main() {
 		// Wait for a message
 		msg, err := sub.NextMsg(time.Duration(10) * time.Second)
 		if err != nil {
-			panic(err)
+			continue
 		}
 		fmt.Println(string(msg.Data))
 	}
