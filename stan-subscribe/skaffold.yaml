@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+metadata:
+  name: stan-subscribe
+build:
+  artifacts:
+  - image: stan-subscribe
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize:
+    paths:
+    - kustomize
