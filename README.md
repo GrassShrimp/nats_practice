@@ -13,6 +13,10 @@ check current context of kubernetes is __docker-desktop__
 ```bash
 $ kubectl config current-context
 ```
+initialize terrafrom module
+```bash
+$ terraform init
+```
 launch nats and nats streaming
 ```bash
 $ terraform apply -auto-approve
